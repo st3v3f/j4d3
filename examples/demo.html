@@ -1,0 +1,90 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>J4d3 Demo</title>
+  <script src="../vendor/d3.min.js"></script>
+  <script src="../j4d3.js"></script>
+  <link rel="stylesheet" type="text/css" href="../j4d3.css">
+  <style>
+    #graph2{
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+
+  <h1> J4d3 - Demo </h1>
+
+  <div id="graph1" ></div>
+  <div id="graph2" style="width:50%;"></div>
+
+  <script>
+    // The data for our line.
+    var lineData = [  { "timestamp": "2015-01-20T00:00:00.000Z",  "val": 500},
+                      { "timestamp": "2015-01-20T01:00:00.000Z",  "val": 2000},
+                      { "timestamp": "2015-01-20T02:00:00.000Z",  "val": 1000},
+                      { "timestamp": "2015-01-20T03:00:00.000Z",  "val": 4000},
+                      { "timestamp": "2015-01-20T04:00:00.000Z",  "val": 500},
+                      { "timestamp": "2015-01-20T05:00:00.000Z",  "val": 4500}];
+
+
+    // Graph Options.
+    var options = {
+      margin: {top: 80, right: 20, bottom: 60, left: 40},
+      interpolation: "cardinal",
+      showAxes: false,
+      width: 600,
+      x:"timestamp",
+      y:"val"
+    };
+
+    // Create Graph1.
+    var graph1 = j4d3.createGraph("#graph1", options);
+    graph1.draw(lineData, "timestamp", "y");
+
+    // Graph 2 - uses its own data array and is responsive to screen width.
+    var lineData2 = lineData.slice();
+    var options2 = {
+      responsive: true,
+      x:"timestamp",
+      y:"val"
+    };
+    var graph2 = new j4d3.Graph("#graph2", options2);
+    graph2.draw(lineData2);
+
+    // Setup data to update on timeout and redraw graph1.
+    var count = 0;
+
+    function onTimeout(){
+      count += 1;
+      count = count % 19;
+
+      if (count === 0)
+        lineData = lineData.slice(0,5);
+
+      var rnd = Math.floor(Math.random() * 6000/3);
+      var prev = lineData[lineData.length-1].val;
+
+      var newval = (rnd % 2 === 1) ? prev + rnd : prev - rnd;
+      if (newval > 6000)
+        newval = prev - rnd;
+      if (newval < 0)
+        newval = prev + rnd;
+      var newTime = d3.time.hour.offset(new Date(lineData[lineData.length-1].timestamp),1);
+      var newTimeString = newTime.toISOString();
+
+      lineData.push({"timestamp": newTimeString, "val": newval });
+
+      // Update graph1
+      graph1.draw(lineData);
+      graph2.draw(lineData);
+    }
+
+    setInterval(onTimeout, 500);
+
+</script>
+
+</body>
+</html>
