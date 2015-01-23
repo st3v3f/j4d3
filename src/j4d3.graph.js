@@ -1,23 +1,3 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-
-
-// Require submodules.
-var graph = require('./j4d3.graph.js');
-
-
-
-// Export anonymous library API object.
-module.exports = function(){
-
-  // Return the J4d3 library object - this is the API.
-  return {
-    Graph: graph // E.g., var graph = new J4d3.Graph("#graph", options);
-
-  };
-
-}();
-
-},{"./j4d3.graph.js":2}],2:[function(require,module,exports){
 
 /* j4d3.Graph - Graph Object */
 
@@ -203,10 +183,3 @@ function Graph(selector, options) {
     };
 
 }
-
-},{}],3:[function(require,module,exports){
-// Create global object for library.
-// This sets the global name of the library.
-j4d3 = require('./api.js');
-
-},{"./api.js":1}]},{},[3]);
