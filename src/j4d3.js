@@ -1,56 +1,42 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+/*
+ * j4d3.js - A lightweight d3.js library for drawing graphs.
+ *
+ */
+
+// Setup global object.
+var j4d3 = window.j4d3 || {};
+
+j4d3 = (function() {
+
+  // Graph constructor.
+  function Graph(selector, options) {
+
+    var defaults={
+      width: 480,
+      height: 250,
+      margin: {top:20, right:20, bottom:60, left:40},
+      interpolation: "cardinal",
+      responsive: false,
+      x: "timestamp",
+      y: "val"
+    };
 
 
-// Require submodules.
-var graph = require('./j4d3.graph.js');
+    var _x = (options && options.x) || defaults.x;
+    var _y = (options && options.y) || defaults.y;
+    var _isResponsive = (options && options.responsive) || defaults.responsive;
+    var _selector = selector;
+    var _options  = options;
 
-
-
-// Export anonymous library API object.
-module.exports = function(){
-
-  // Return the J4d3 library object - this is the API.
-  return {
-    Graph: graph // E.g., var graph = new J4d3.Graph("#graph", options);
-
-  };
-
-}();
-
-},{"./j4d3.graph.js":2}],2:[function(require,module,exports){
-
-/* j4d3.Graph - Graph Object */
-
-module.exports = Graph;
-
-// Graph constructor.
-function Graph(selector, options) {
-
-  var defaults={
-    width: 480,
-    height: 250,
-    margin: {top:20, right:20, bottom:60, left:40},
-    interpolation: "cardinal",
-    responsive: false,
-    x: "timestamp",
-    y: "val"
-  };
-
-  var _x = (options && options.x) || defaults.x;
-  var _y = (options && options.y) || defaults.y;
-  var _isResponsive = (options && options.responsive) || defaults.responsive;
-  var _selector = selector;
-  var _options  = options;
-
-  var inputMargin = (options && options.margin);
-  var margin = {top:    (inputMargin && inputMargin.top)    || 20,
-                right:  (inputMargin && inputMargin.right)  || 20,
-                bottom: (inputMargin && inputMargin.bottom) || 60,
-                left:   (inputMargin && inputMargin.left)   || 40};
+    var inputMargin = (options && options.margin);
+    var margin = {top:    (inputMargin && inputMargin.top)    || 20,
+                  right:  (inputMargin && inputMargin.right)  || 20,
+                  bottom: (inputMargin && inputMargin.bottom) || 60,
+                  left:   (inputMargin && inputMargin.left)   || 40};
 
     var containerWidth = (options && options.width) ||
-    parseInt(d3.select(selector).style('width'), 10) ||
-    defaults.width;
+                         parseInt(d3.select(selector).style('width'), 10) ||
+                         defaults.width;
 
     var containerHeight = (options && options.height) || defaults.height;
 
@@ -202,11 +188,15 @@ function Graph(selector, options) {
 
     };
 
-}
+  }
 
-},{}],3:[function(require,module,exports){
-// Create global object for library.
-// This sets the global name of the library.
-j4d3 = require('./api.js');
+  // Return the j4d3 library object - this is the API.
+  return {
+    createGraph: function(selector, options){
+      return new Graph(selector,options);
+    },
 
-},{"./api.js":1}]},{},[3]);
+    Graph: Graph // E.g., var graph = new j4d3.Graph("#graph", options);
+  };
+
+})();
