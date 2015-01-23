@@ -38,7 +38,7 @@ View a simple graph demo here: [http://bl.ocks.org/st3v3f/raw/403d15dcbe0e48b8a5
               { "timestamp": "2015-01-20T04:00:00.000Z",   "val": 500},
               { "timestamp": "2015-01-20T05:00:00.000Z",   "val": 4500}];
 
-  var graph = new J4d3.Graph('#graph');
+  var graph = new j4d3.Graph('#graph');
   graph.draw(data);
 
   //...[data update]  
