@@ -6,6 +6,14 @@ Provides a lightweight JavaScript library for creating responsive real-time grap
 
 [Currently work in progress..]
 
+View a simple graph demo here: [http://bl.ocks.org/st3v3f/raw/403d15dcbe0e48b8a5bc/](http://bl.ocks.org/st3v3f/raw/403d15dcbe0e48b8a5bc/)
+
+## Features
+
+  * Real-time data update
+  * Automatic y-axis ranging
+  * Responsive x-axis option
+
 ## Getting Started
 
   Here's an example of how to draw a graph :
